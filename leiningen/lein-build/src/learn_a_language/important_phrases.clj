@@ -1,5 +1,6 @@
 (ns learn-a-language.important-phrases
   (:gen-class))
+(require 'clojure.tools.trace)
 
 ;; It's time for some German love! 
 (def german
@@ -9,8 +10,12 @@
    ["Pass me the mustard." "Gib mir den Senf."]   
    ["Kiss me!" "Küss mich!"]])
 
-(defn -main
-  [which]
-  (let [phrases (get german (Integer. which))]
-    (println "English: " (first phrases))
-    (println "German: " (second phrases))))
+(defn ^:dynamic -main
+  [& which]
+  (println which)
+  (doseq [x which]
+    (println x)
+    (let [phrases (get german (Integer. x))]
+      (println "English: " (first phrases))
+      (println "German: " (second phrases)))))
+
